@@ -1,35 +1,29 @@
-# Screeps Arena Typescript Starter
+# Screeps Arena Bot(s)
+based on [Screeps Arena Typescript Starter](https://github.com/screepers/screeps-arena-typescript-starter)
 
-## This repo is a WIP starter template for the current Closed Alpha of [Screeps Arena](https://store.steampowered.com/app/1137320/Screeps_Arena/)
+## This bot is a WIP
 
-## Screeps Arena is a new game _under active development_, this repo is unoffcial and maintained by the screepers community
+## [Screeps Arena](https://store.steampowered.com/app/1137320/Screeps_Arena/) is a new game _under active development_,
 
 ### Any issues you experience with this repo should be created as an issue in this repo, _the Screeps Arena devs should NOT be contacted!_
 
 ---
 
-TODO:
-
-- [ ] A way to push code to a specific arena `npm run push alpha-capture-the-flag`
-  - Will probably be a copy of files to the correct location, depending on what location has been choosen in the arena client.
-  - If we can't detect the locations, we will probably need a `screeps-arena.json` file where people can set up their desired output destinations
-
-Current Issues:
-None
+## Supported Arenas
+  - [x] Capture the Flag (WIP)
+  - [ ] Spawn and Swamp
+  - [ ] Collect and Control
+  - [ ] Capture the Flag - Advanced Level
+  - [ ] Spawn and Swamp - Advanced Level
+  - [ ] Collect and Control - Advanced Level
 
 ---
-
-# Screeps Arena Typescript Starter
-
-Screeps Arena Typescript Starter is a starting point for a Screeps Arena AI written in Typescript. It provides everything you need to start writing your AI whilst leaving `main.ts` as empty as possible.
-
-The initial example code from the steam forum is included in `src/alpha-capture_the_flag/main.ts`
 
 ## Basic Usage
 
 You will need:
 
-- [Node.JS](https://nodejs.org/en/download) (10.x || 12.x)
+- [Node.JS](https://nodejs.org/en/download) (10.x || 12.x || 16.x)
 - A Package Manager ([Yarn](https://yarnpkg.com/en/docs/getting-started) or [npm](https://docs.npmjs.com/getting-started/installing-node))
 - Rollup CLI (Optional, install via `npm install -g rollup`)
 
@@ -54,8 +48,6 @@ Fire up your preferred editor with typescript installed and you are good to go!
 
 - Copy the `main.mjs` file to your desired location or change the location in the Screeps Arena client to point to the desired `/dist/*` folder.
 
-~~- `npm run push` builds all arenas, then pushes all arenas to their respective folders where the client is pointed at.~~
-~~- `npm run push capture` builds the specific arena, then pushes the capture arena to their respective folders where the client is pointed at.~~
 
 ## Typings
 
@@ -65,6 +57,3 @@ When the typings are updated and you need to get the newest types
 - delete node_modules/@types/screeps-arena
 - run `npm i` to reinstall the packages. You might need to delete package-lock.json to get the types.
 
-## Contributing
-
-Issues, Pull Requests, and contribution to the docs are welcome! See our [Contributing Guidelines](CONTRIBUTING.md) for more details.
