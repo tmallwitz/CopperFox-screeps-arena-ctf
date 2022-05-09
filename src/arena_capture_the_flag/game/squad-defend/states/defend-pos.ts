@@ -1,20 +1,14 @@
 import { ATTACK, HEAL, RANGED_ATTACK } from "game/constants";
 import { getRange } from "game/utils";
-import { InformationCenter } from "../information-center";
-import { Squad } from "../squad/squad";
-import { SquadPointBase } from "./squad-point-base";
+import { State } from "../../../../common/fsm/state";
+import { informationCenter } from "../../../information-center";
+import { SquadDefend } from "../squad-defend";
 
-export class SquadDefend extends SquadPointBase {
-  public run(squad: Squad, informationCenter: InformationCenter): void {
-    squad.moveTo(squad.target);
-    if (squad.target) {
-      squad.moveTo(squad.target);
-      console.log(`Squad ${squad.name} runs role Defender for pos ${squad.target.x}/${squad.target.y}`);
-    } else {
-      console.log(`Squad ${squad.name} runs role Defender but has no pos`);
-    }
+class DefendPos extends State<SquadDefend> {
+  public Execute(entity: SquadDefend): void {
+    entity.moveTo(entity.target);
     // Melee
-    squad.creeps
+    entity.creeps
       .filter(c => c.body.some(i => i.type === ATTACK))
       .forEach(creep => {
         const targets = informationCenter.enemyCreeps
@@ -26,7 +20,7 @@ export class SquadDefend extends SquadPointBase {
         }
       });
     // Range
-    squad.creeps
+    entity.creeps
       .filter(c => c.body.some(i => i.type === RANGED_ATTACK))
       .forEach(creep => {
         const targets = informationCenter.enemyCreeps.sort((a, b) => getRange(a, creep) - getRange(b, creep));
@@ -35,7 +29,7 @@ export class SquadDefend extends SquadPointBase {
         }
       });
     // Heal
-    squad.creeps
+    entity.creeps
       .filter(c => c.body.some(i => i.type === HEAL))
       .forEach(creep => {
         const healTargets = informationCenter.myCreeps
@@ -50,4 +44,14 @@ export class SquadDefend extends SquadPointBase {
         }
       });
   }
+
+  public Enter(entity: SquadDefend): void {
+    this.log(entity, "Defending pos: " + JSON.stringify(entity.target));
+  }
+
+  public Exit(entity: SquadDefend): void {
+    this.log(entity, "Stop defending pos: " + JSON.stringify(entity.target));
+  }
 }
+
+export const defendPos = new DefendPos();

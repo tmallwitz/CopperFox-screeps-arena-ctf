@@ -1,9 +1,8 @@
 import { Flag } from "arena";
-import { CONNREFUSED } from "dns";
 import { Creep, RoomPosition, StructureTower } from "game/prototypes";
 import { getObjectsByPrototype } from "game/utils";
 
-export class InformationCenter {
+class InformationCenter {
   public myCreeps: Creep[] = [];
   public myTowers: StructureTower[] = [];
   public enemyCreeps: Creep[] = [];
@@ -12,15 +11,18 @@ export class InformationCenter {
 
   public points: { [key: string]: RoomPosition } = {};
 
-  public constructor() {
+  public init(): void {
     this.enemyFlag = getObjectsByPrototype(Flag).find(i => !i.my);
     this.myFlag = getObjectsByPrototype(Flag).find(i => i.my);
     if (this.myFlag && this.myFlag.x < 50) this.points.Libero = { x: 7, y: 7 };
     else this.points.Libero = { x: 92, y: 92 };
+    if (this.myFlag && this.myFlag.x < 50) this.points.AlphaDef = { x: 9, y: 9 };
+    else this.points.Libero = { x: 90, y: 90 };
     if (this.myFlag) this.points.myFlag = { x: this.myFlag.x, y: this.myFlag.y };
     if (this.enemyFlag) this.points.enemyFlag = { x: this.enemyFlag.x, y: this.enemyFlag.y };
 
     this.points.Alpha = { x: 66, y: 35 };
+    this.update();
   }
 
   public update(): void {
@@ -32,3 +34,5 @@ export class InformationCenter {
     this.myTowers = getObjectsByPrototype(StructureTower).filter(i => i.my);
   }
 }
+
+export const informationCenter = new InformationCenter();
